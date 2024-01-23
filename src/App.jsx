@@ -7,10 +7,11 @@ import {
 import Cart from './pages/Cart';
 import Home from './pages/Home';
 import Checkout from './pages/Checkout';
-import Login from './pages/Login';
-import SignUp from './pages/Signup';
+import Login from './pages/Login/Login';
+import SignUp from './pages/Signup/Signup';
 import Shop from './pages/Shop';
 import ProductDetails from './pages/ProductDetails';
+import './index.css'
 
  function App() {
   const router = createBrowserRouter(

@@ -1,0 +1,27 @@
+.signup-options a{
+    display: flex;
+    align-items: center;
+    border: 1px solid #EEE;
+    border-radius: 5px;
+    background-color: #FAFAFA;
+    padding: 10px 30px;
+    font-size: 12px;
+    align-content: space-evenly;
+    gap: 40px;
+    padding-left: 50px;
+}
+
+.inner{
+    animation: octagon 5s infinite;
+}
+
+@keyframes octagon {
+    from{
+        background: yellow;
+    }
+    to{
+        
+        background: red;
+    }
+}
+
