@@ -1,62 +1,18 @@
-import logo from "../../assets/images/logo.png";
-import { useNavigate } from "react-router-dom";
-import { FaRegUser, FaSearch } from "react-icons/fa";
-import { PiShoppingCart } from "react-icons/pi";
+
 
 import hero from "../../assets/images/hero.png";
 import ld from "../../assets/images/ld.png";
 import chair from "../../assets/images/chair.jpg";
 import "./Home.css";
 import ProductCard from "../../components/ProductCard";
+import NavBar from "../../components/Nav/NavBar";
 
 const Home = () => {
-  const navigate = useNavigate();
-
-  const nav_link = [
-    {
-      path: "/",
-      display: "HOME",
-    },
-    {
-      path: "shop",
-      display: "SHOP",
-    },
-    {
-      path: "about",
-      display: "ABOUT US",
-    },
-  ];
+  
   return (
     <>
       <div className="h-[100vh] text-white p-[30px] bg-primary flex flex-col gap-20">
-        <nav className="flex justify-around h-[50px] items-center">
-          <div className="image flex h-fit justify-center items-center font-bold">
-            <img src={logo} className="h-10" alt="Logo" />
-            ECOBUDDi
-          </div>
-          <div className="flex gap-4 font-poppins">
-            {nav_link.map((item, index) => (
-              <a
-                className="cursor-pointer"
-                key={index}
-                onClick={() => navigate(`${item.path}`)}
-              >
-                {item.display}
-              </a>
-            ))}
-          </div>
-          <div className="flex gap-4 justify-center items-center">
-            <a
-              href=""
-              className="bg-orange h-fit w-[100px] text-center py-2 rounded-[5px] text-[13px] font-medium"
-            >
-              LIST ITEM
-            </a>
-            <FaSearch className="text-orange cursor-pointer" />
-            <FaRegUser className="text-orange cursor-pointer" />
-            <PiShoppingCart className="text-orange cursor-pointer" />
-          </div>
-        </nav>
+        <NavBar />
         <div className="flex justify-around">
           <div className="flex flex-col gap-7">
             <h3 className="text-secondary font-bold font-poppins uppercase text-[70px] w-[500px] tracking-[5px] leading-[90px]">
