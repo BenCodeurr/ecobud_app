@@ -12,7 +12,7 @@ export default {
       'black': '#000000',
       'secondary': '#EFB343',
       'orange': '#FF3D00',
-      'red': 'red'
+      'red': 'red',
     },
     fontFamily: {
       poppins: ["Poppins", "sans-serif"],
