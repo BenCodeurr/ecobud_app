@@ -25,12 +25,12 @@ function NavBar({shadow, padding}) {
   ];
 
   return (
-    <nav className={`flex justify-around items-center shadow-${shadow} py-${padding}`}>
-          <div className="image flex h-fit justify-center items-center font-bold">
+    <nav className={`flex justify-around items-center shadow-${shadow} py-${padding} mb-10`}>
+          <div className="text-[13px] md:text-[15px] image flex h-fit justify-center items-center font-bold font-poppins cursor-pointer" onClick={()=>navigate("/")}>
             <img src={logo} className="h-10" alt="Logo" />
             ECOBUDDi
           </div>
-          <div className="flex gap-4 font-poppins">
+          <div className="text-[13px] md:text-[15px] flex gap-4 font-poppins">
             {nav_link.map((item, index) => (
               <a
                 className="cursor-pointer"
@@ -44,13 +44,13 @@ function NavBar({shadow, padding}) {
           <div className="flex gap-4 justify-center items-center">
             <a
               href=""
-              className="bg-orange h-fit w-[100px] text-center py-2 rounded-[5px] text-[13px] font-medium"
+              className="hidden md:inline-block bg-orange h-fit w-[100px] text-center py-2 rounded-[5px] text-[13px] font-medium"
             >
               LIST ITEM
             </a>
             <FaSearch className="text-orange cursor-pointer" />
-            <FaRegUser className="text-orange cursor-pointer" />
-            <PiShoppingCart className="text-orange cursor-pointer" />
+            {/* <FaRegUser className="text-orange cursor-pointer" /> */}
+            {/* <PiShoppingCart className="text-orange cursor-pointer" /> */}
           </div>
         </nav>
   )

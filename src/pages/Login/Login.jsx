@@ -28,7 +28,7 @@ const Login = () => {
       .then((userCredential) => {
         const user = userCredential.user;
         dispatch({type:"LOGIN", payload:user})
-        navigate("/addproduct");
+        navigate("/seller");
       })
       .catch((error) => {
         setError(true);
@@ -37,7 +37,7 @@ const Login = () => {
 
   return (
     <div className="main-container relative h-[100vh] flex text-white p-[40px] bg-primary font-inter">
-      <div className="image flex h-fit justify-center items-center font-bold gap-2">
+      <div className="image flex h-fit justify-center items-center font-bold gap-2 cursor-pointer" onClick={()=>navigate("/")}>
         <img src={logo} className="h-10" alt="Logo" />
         ECOBUDDi
       </div>

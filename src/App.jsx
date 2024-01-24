@@ -12,7 +12,7 @@ import Checkout from "./pages/Checkout/Checkout";
 import Login from "./pages/Login/Login";
 import SignUp from "./pages/Signup/Signup";
 import Shop from "./pages/Shop/Shop";
-import AddProduct from "./pages/New/AddProduct";
+import Seller from "./pages/New/Seller";
 import ProductDetails from "./pages/Single/ProductDetails";
 import { useContext } from "react";
 import { AuthContext } from "./context/AuthContext";
@@ -62,10 +62,10 @@ function App() {
         />
         <Route
           exact
-          path="addproduct"
+          path="seller"
           element={
             <RequireAuth>
-              <AddProduct />
+              <Seller />
             </RequireAuth>
           }
         />

@@ -8,9 +8,7 @@ import "./Signup.css";
 import { useState, useContext } from "react";
 import { auth } from "../../services/Firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import {AuthContext} from "../../context/AuthContext"
-
-
+import { AuthContext } from "../../context/AuthContext";
 
 const Signup = () => {
   const [error, setError] = useState(false);
@@ -20,7 +18,7 @@ const Signup = () => {
 
   const navigate = useNavigate();
 
-  const {dispatch} = useContext(AuthContext)
+  const { dispatch } = useContext(AuthContext);
 
   const createAccount = (e) => {
     e.preventDefault();
@@ -28,8 +26,8 @@ const Signup = () => {
     createUserWithEmailAndPassword(auth, email, password, name)
       .then((userCredential) => {
         const user = userCredential.user;
-        dispatch({type:"LOGIN", payload:user})
-        navigate("/addproduct");
+        dispatch({ type: "LOGIN", payload: user });
+        navigate("/seller");
       })
       .catch((error) => {
         setError(true);
@@ -72,7 +70,7 @@ const Signup = () => {
               type="email"
               placeholder="Email Adress"
               required
-              onChange={(e) =>setEmail(e.target.value)}
+              onChange={(e) => setEmail(e.target.value)}
             />
             <input
               className="outline-none border-none bg-[#F2F4F6] rounded-[5px] pl-5 py-6 h-10 block"
