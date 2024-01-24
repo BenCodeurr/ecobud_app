@@ -12,6 +12,7 @@ import Checkout from "./pages/Checkout/Checkout";
 import Login from "./pages/Login/Login";
 import SignUp from "./pages/Signup/Signup";
 import Shop from "./pages/Shop/Shop";
+import Seller from "./pages/New/Seller";
 import ProductDetails from "./pages/Single/ProductDetails";
 import { useContext } from "react";
 import { AuthContext } from "./context/AuthContext";
@@ -56,6 +57,15 @@ function App() {
           element={
             <RequireAuth>
               <Cart />
+            </RequireAuth>
+          }
+        />
+        <Route
+          exact
+          path="seller"
+          element={
+            <RequireAuth>
+              <Seller />
             </RequireAuth>
           }
         />

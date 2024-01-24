@@ -1,12 +1,38 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/no-unescaped-entities */
 import { FaApple } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import logo from "../../assets/images/logo.png";
 import google from "../../assets/images/google.png";
 import "./Signup.css";
+import { useState, useContext } from "react";
+import { auth } from "../../services/Firebase";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { AuthContext } from "../../context/AuthContext";
 
 const Signup = () => {
+  const [error, setError] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
+
   const navigate = useNavigate();
+
+  const { dispatch } = useContext(AuthContext);
+
+  const createAccount = (e) => {
+    e.preventDefault();
+
+    createUserWithEmailAndPassword(auth, email, password, name)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        dispatch({ type: "LOGIN", payload: user });
+        navigate("/seller");
+      })
+      .catch((error) => {
+        setError(true);
+      });
+  };
   return (
     <div className="main-container relative h-[100vh] flex text-white p-[40px] bg-primary font-inter">
       <div className="image flex h-fit justify-center items-center font-bold gap-2">
@@ -31,24 +57,27 @@ const Signup = () => {
             <h5 className="text-[10px]">LET'S GET YOU STARTED</h5>
             <h4 className="text-[20px] font-bold">Log into your account</h4>
           </div>
-          <form className="form flex flex-col gap-3">
+          <form className="form flex flex-col gap-3" onSubmit={createAccount}>
             <input
               className="outline-none border-none bg-[#F2F4F6] rounded-[5px] pl-5 py-6 h-10 block"
               type="text"
               placeholder="Your Name"
               required
+              onChange={(e) => setName(e.target.value)}
             />
             <input
               className="outline-none border-none bg-[#F2F4F6] rounded-[5px] pl-5 py-6 h-10 block"
               type="email"
               placeholder="Email Adress"
               required
+              onChange={(e) => setEmail(e.target.value)}
             />
             <input
               className="outline-none border-none bg-[#F2F4F6] rounded-[5px] pl-5 py-6 h-10 block"
               type="password"
               placeholder="Password"
               required
+              onChange={(e) => setPassword(e.target.value)}
             />
 
             <button
@@ -58,9 +87,11 @@ const Signup = () => {
               Sign Up
             </button>
           </form>
-          <p className="error text-red text-center font-poppins text-[11px]">
-            All fields are mandatory
-          </p>
+          {error && (
+            <p className="error text-red text-center font-poppins text-[11px]">
+              Kindly fill all the fields to proceed.
+            </p>
+          )}
           <div className="divider flex gap-3 justify-center items-center text-[13px] text-[#a5a5a5]">
             <hr className="w-[150px]" />
             <span className="font-light text-[10px]">Or</span>
