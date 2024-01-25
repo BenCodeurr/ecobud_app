@@ -10,6 +10,7 @@ import {
   serverTimestamp,
 } from "firebase/firestore";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { db, storage } from "../../services/Firebase";
 import Helmet from "../../components/Helmet/Helmet";
 import Sidebar from "../../components/Sidebar/Sidebar";
@@ -21,14 +22,51 @@ function Seller() {
   const [data, setData] = useState({
     title: "",
     detail: "",
+    category: "Caps",
+    price: 15
   });
+
+  // const handleInput = (e) => {
+  //   const id = e.target.id;
+  //   const value = e.target.value;
+
+  //   setData({ ...data, [id]: value });
+
+  //   if (id === "category") {
+  //     const defaultPrice = getDefaultPrice(value);
+  //     setData({ ...data, price: defaultPrice });
+  //   }
+  // };
 
   const handleInput = (e) => {
     const id = e.target.id;
     const value = e.target.value;
-
-    setData({ ...data, [id]: value });
+  
+    if (id === "category") {
+      const defaultPrice = getDefaultPrice(value);
+      setData((prevData) => ({ ...prevData, [id]: value, price: defaultPrice }));
+    } else {
+      setData((prevData) => ({ ...prevData, [id]: value }));
+    }
   };
+
+    const getDefaultPrice = (category) => {
+      switch (category) {
+        case "Shoes":
+          return 50;
+        case "Shirts":
+          return 20;
+        case "Bags":
+          return 30;
+        case "Trousers":
+          return 40;
+        case "Caps":
+        default:
+          return 15;
+      }
+  };
+
+  
 
   const productImages = async (e) => {
     const files = Array.from(e.target.files);
@@ -70,18 +108,31 @@ function Seller() {
 
   const addProduct = async (e) => {
     e.preventDefault();
+    
     try {
+      const auth = getAuth();
+      let userEmail = "";
+
+      onAuthStateChanged(auth, (user)=>{
+        if(user){
+          userEmail = user.email;
+        }else{
+          toast.error("User not logged in")
+        }
+      })
+
       const imageUrls = await uploadImagesToStorage();
 
       await addDoc(collection(db, "products"), {
         ...data,
+        user: userEmail,
         images: imageUrls,
         timeStamp: serverTimestamp(),
       });
 
       setImages([]);
       setImageURLs([]);
-      setData({ title: "", detail: "" });
+      setData({ title: "", detail: "", category: "Caps", price:15 });
       toast.success("Product sucessfully added", {
         position: "top-center",
         hideProgressBar: "true",
@@ -89,21 +140,18 @@ function Seller() {
         pauseOnHover: "true",
       });
     } catch (err) {
-      console.err("Error uploading images or adding product", err);
-      toast.error("Error Addiing product");
+      toast.error("Error Adding product");
     }
   };
 
   
-
-
   return (
     <>
       <Helmet title={"New Product"}>
         <div className="top flex items-center justify-center h-[50px] shadow-md">
           <Link to="/" style={{ textDecoration: "none" }}>
             <span className="text-[20px] font-bold text-primary font-poppins">
-              Welcome! Choga
+              Welcome Back!
             </span>
           </Link>
         </div>
@@ -152,27 +200,34 @@ function Seller() {
                       name="selectedCategory"
                       onChange={handleInput}
                       id="category"
+                      value={data.category}
                       className="ml-2 p-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500 font-poppins text-[13px]"
                     >
-                      <option value="Electronics">Electronics</option>
-                      <option value="Furniture">Furniture</option>
-                      <option value="Clothing">Clothing</option>
+                      <option value="Caps">Caps</option>
+                      <option value="Shirts">Shirts</option>
+                      <option value="Bags">Bags</option>
+                      <option value="Trousers">Trousers</option>
+                      <option value="Shoes">Shoes</option>
                     </select>
                   </div>
 
                   <div className="flex items-center">
                     <label className="font-poppins text-[13px] font-bold">
-                      Price Range:
+                      Price:
                     </label>
                     <select
                       name="selectedCategory"
                       onChange={handleInput}
                       id="price"
+                      value={data.price}
+                      disabled
                       className="ml-2 p-2 border border-gray-300 rounded-md focus:outline-none focus:border-black font-poppins text-[13px]"
                     >
-                      <option value="Range1">2-10</option>
-                      <option value="Range2">10-50</option>
-                      <option value="Range3">50-100</option>
+                      <option value="15">15</option>
+                      <option value="20">20</option>
+                      <option value="30">30</option>
+                      <option value="40">40</option>
+                      <option value="50">50</option>
                     </select>
                   </div>
                 </div>
@@ -201,4 +256,6 @@ function Seller() {
     </>
   );
 }
+
+
 export default Seller;

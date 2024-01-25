@@ -33,33 +33,9 @@ function App() {
         <Route exact path="login" element={<Login />} />
         <Route path="/" element={<Home />} />
         <Route exact path="signup" element={<SignUp />} />
-        <Route
-          exact
-          path="shop"
-          element={
-            <RequireAuth>
-              <Shop />
-            </RequireAuth>
-          }
-        />
-        <Route
-          exact
-          path="checkout"
-          element={
-            <RequireAuth>
-              <Checkout />
-            </RequireAuth>
-          }
-        />
-        <Route
-          exact
-          path="cart"
-          element={
-            <RequireAuth>
-              <Cart />
-            </RequireAuth>
-          }
-        />
+        <Route exact path="shop" element={<Shop />} />
+        <Route exact path="checkout" element={<Checkout />} />
+        <Route exact path="cart" element={<Cart />} />
         <Route
           exact
           path="seller"
@@ -69,15 +45,7 @@ function App() {
             </RequireAuth>
           }
         />
-        <Route
-          exact
-          path="shop/:id"
-          element={
-            <RequireAuth>
-              <ProductDetails />
-            </RequireAuth>
-          }
-        />
+        <Route exact path="shop/:id" element={<ProductDetails />} />
       </>
     )
   );
