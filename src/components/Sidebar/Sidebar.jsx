@@ -36,12 +36,11 @@ const Sidebar = () => {
           <span>Dashboard</span>
         </li>
 
-        <Link to="/products" style={{ textDecoration: "none" }}>
           <li>
             <StoreIcon className="icon" />
             <span>Products</span>
           </li>
-        </Link>
+ 
 
         <li>
           <NotificationsNoneIcon className="icon" />

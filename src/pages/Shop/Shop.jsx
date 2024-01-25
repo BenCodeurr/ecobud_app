@@ -1,10 +1,8 @@
 /* eslint-disable react/no-unknown-property */
 import Helmet from "../../components/Helmet/Helmet";
-// import chair from "../../assets/images/chair.jpg";
 import { useState, useEffect } from "react";
 import { getFirestore, collection, getDocs } from "firebase/firestore";
 import NavBar from "../../components/Nav/NavBar";
-// import { collection, getDocs } from "firebase/firestore";
 
 const Shop = () => {
   const [products, setProducts] = useState([]);

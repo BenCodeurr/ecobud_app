@@ -26,18 +26,6 @@ function Seller() {
     price: 15
   });
 
-  // const handleInput = (e) => {
-  //   const id = e.target.id;
-  //   const value = e.target.value;
-
-  //   setData({ ...data, [id]: value });
-
-  //   if (id === "category") {
-  //     const defaultPrice = getDefaultPrice(value);
-  //     setData({ ...data, price: defaultPrice });
-  //   }
-  // };
-
   const handleInput = (e) => {
     const id = e.target.id;
     const value = e.target.value;
@@ -106,43 +94,87 @@ function Seller() {
     return imagesUrls;
   };
 
-  const addProduct = async (e) => {
+  const addProduct = (e) => {
     e.preventDefault();
-    
+  
     try {
       const auth = getAuth();
       let userEmail = "";
-
-      onAuthStateChanged(auth, (user)=>{
-        if(user){
+  
+      onAuthStateChanged(auth, (user) => {
+        if (user) {
           userEmail = user.email;
-        }else{
-          toast.error("User not logged in")
+        } else {
+          toast.error("User not logged in");
         }
-      })
-
-      const imageUrls = await uploadImagesToStorage();
-
-      await addDoc(collection(db, "products"), {
-        ...data,
-        user: userEmail,
-        images: imageUrls,
-        timeStamp: serverTimestamp(),
       });
-
-      setImages([]);
-      setImageURLs([]);
-      setData({ title: "", detail: "", category: "Caps", price:15 });
-      toast.success("Product sucessfully added", {
-        position: "top-center",
-        hideProgressBar: "true",
-        theme: "colored",
-        pauseOnHover: "true",
-      });
+  
+      uploadImagesToStorage()
+        .then((imageUrls) =>
+          addDoc(collection(db, "products"), {
+            ...data,
+            user: userEmail,
+            images: imageUrls,
+            timeStamp: serverTimestamp(),
+          })
+        )
+        .then(() => {
+          setImages([]);
+          setImageURLs([]);
+          setData({ title: "", detail: "", category: "Caps", price: 15 });
+          toast.success("Product successfully added", {
+            position: "top-center",
+            hideProgressBar: true,
+            theme: "colored",
+            pauseOnHover: true,
+          });
+        })
+        .catch((err) => {
+          toast.error("Error Adding product");
+        });
     } catch (err) {
       toast.error("Error Adding product");
     }
   };
+  
+
+  // const addProduct = async (e) => {
+  //   e.preventDefault();
+    
+  //   try {
+  //     const auth = getAuth();
+  //     let userEmail = "";
+
+  //     onAuthStateChanged(auth, (user)=>{
+  //       if(user){
+  //         userEmail = user.email;
+  //       }else{
+  //         toast.error("User not logged in")
+  //       }
+  //     })
+
+  //     const imageUrls = await uploadImagesToStorage();
+
+  //     await addDoc(collection(db, "products"), {
+  //       ...data,
+  //       user: userEmail,
+  //       images: imageUrls,
+  //       timeStamp: serverTimestamp(),
+  //     });
+
+  //     setImages([]);
+  //     setImageURLs([]);
+  //     setData({ title: "", detail: "", category: "Caps", price:15 });
+  //     toast.success("Product sucessfully added", {
+  //       position: "top-center",
+  //       hideProgressBar: "true",
+  //       theme: "colored",
+  //       pauseOnHover: "true",
+  //     });
+  //   } catch (err) {
+  //     toast.error("Error Adding product");
+  //   }
+  // };
 
   
   return (
@@ -189,6 +221,7 @@ function Seller() {
                   type="text"
                   id="title"
                   placeholder="Name of Product"
+                  value={data.title}
                   onChange={handleInput}
                 />
                 <div className="flex space-x-4">
@@ -237,6 +270,7 @@ function Seller() {
                   rows={3}
                   id="detail"
                   placeholder="Product Details"
+                  value={data.detail}
                   onChange={handleInput}
                 />
 
