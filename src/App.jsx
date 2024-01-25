@@ -2,15 +2,13 @@
 import {
   Navigate,
   Route,
-  RouterProvider,
-  createBrowserRouter,
-  createRoutesFromElements,
+  Routes,
 } from "react-router-dom";
 import Home from "./pages/Home/Home";
 import Login from "./pages/Login/Login";
 import SignUp from "./pages/Signup/Signup";
 import Shop from "./pages/Shop/Shop";
-import Seller from "./pages/New/Seller";
+import Seller from "./pages/Seller/Seller";
 import ProductDetails from "./pages/Single/ProductDetails";
 import { useContext } from "react";
 import { AuthContext } from "./context/AuthContext";
@@ -23,29 +21,23 @@ function App() {
     return currentUser ? children : <Navigate to="/login" />;
   };
 
-  console.log(currentUser);
-
-  const router = createBrowserRouter(
-    createRoutesFromElements(
-      <>
-        <Route exact path="login" element={<Login />} />
-        <Route path="/" element={<Home />} />
-        <Route exact path="signup" element={<SignUp />} />
-        <Route exact path="shop" element={<Shop />} />
-        <Route
-          exact
-          path="seller"
-          element={
-            <RequireAuth>
-              <Seller />
-            </RequireAuth>
-          }
-        />
-        <Route exact path="shop/:id" element={<ProductDetails />} />
-      </>
-    )
+  return (
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="login" element={<Login />} />
+      <Route path="signup" element={<SignUp />} />
+      <Route path="shop" element={<Shop />} />
+      <Route
+        path="seller"
+        element={
+          <RequireAuth>
+            <Seller />
+          </RequireAuth>
+        }
+      />
+      <Route path="shop/:id" element={<ProductDetails />} />
+    </Routes>
   );
-  return <RouterProvider router={router} />;
 }
 
 export default App;

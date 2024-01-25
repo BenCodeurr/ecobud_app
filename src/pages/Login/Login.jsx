@@ -4,6 +4,8 @@
 import { FaApple } from "react-icons/fa";
 // import { TextField } from "@mui/material";
 import logo from "../../assets/images/logo.png";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import google from "../../assets/images/google.png";
 import { useState, useContext } from "react";
 import { auth } from "../../services/Firebase";
@@ -32,6 +34,12 @@ const Login = () => {
       })
       .catch((error) => {
         setError(true);
+        toast.error("Product successfully added", {
+          position: "top-center",
+          hideProgressBar: true,
+          theme: "colored",
+          pauseOnHover: true,
+        });
       });
   };
 
@@ -84,6 +92,7 @@ const Login = () => {
               Login
             </button>
           </form>
+          <ToastContainer />
           {error && (
             <p className="error text-red text-center font-poppins text-[11px]">
               Wrong email or password
