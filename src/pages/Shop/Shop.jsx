@@ -29,7 +29,7 @@ const Shop = () => {
     <>
       <Helmet tittle={"Shop"}>
         <NavBar/>
-        <div className="flex gap-3 flex-wrap justify-center">
+        <div className="flex gap-3 flex-wrap justify-center mt-10">
         {products.map((product, index) => (
           <div
             key={index}
