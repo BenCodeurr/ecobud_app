@@ -12,6 +12,7 @@ export default {
       'black': '#000000',
       'secondary': '#EFB343',
       'orange': '#FF3D00',
+      'orange-800': '#E34234',
       'red': 'red',
     },
     fontFamily: {
