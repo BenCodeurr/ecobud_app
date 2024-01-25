@@ -3,7 +3,7 @@
 import logo from "../../assets/images/logo.png";
 import { useNavigate } from "react-router-dom";
 import { FaRegUser, FaSearch } from "react-icons/fa";
-// import { PiShoppingCart } from "react-icons/pi";
+
 
 function NavBar() {
   const navigate = useNavigate();
