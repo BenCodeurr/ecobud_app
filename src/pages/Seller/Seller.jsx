@@ -137,46 +137,6 @@ function Seller() {
     }
   };
   
-
-  // const addProduct = async (e) => {
-  //   e.preventDefault();
-    
-  //   try {
-  //     const auth = getAuth();
-  //     let userEmail = "";
-
-  //     onAuthStateChanged(auth, (user)=>{
-  //       if(user){
-  //         userEmail = user.email;
-  //       }else{
-  //         toast.error("User not logged in")
-  //       }
-  //     })
-
-  //     const imageUrls = await uploadImagesToStorage();
-
-  //     await addDoc(collection(db, "products"), {
-  //       ...data,
-  //       user: userEmail,
-  //       images: imageUrls,
-  //       timeStamp: serverTimestamp(),
-  //     });
-
-  //     setImages([]);
-  //     setImageURLs([]);
-  //     setData({ title: "", detail: "", category: "Caps", price:15 });
-  //     toast.success("Product sucessfully added", {
-  //       position: "top-center",
-  //       hideProgressBar: "true",
-  //       theme: "colored",
-  //       pauseOnHover: "true",
-  //     });
-  //   } catch (err) {
-  //     toast.error("Error Adding product");
-  //   }
-  // };
-
-  
   return (
     <>
       <Helmet title={"New Product"}>
