@@ -2,19 +2,28 @@
 /* eslint-disable react/no-unescaped-entities */
 import Helmet from "../../components/Helmet/Helmet";
 import NavBar from "../../components/Nav/NavBar";
-import { useLocation } from "react-router-dom";
+import { useLocation} from "react-router-dom";
 
 const ProductDetails = () => {
   const location = useLocation();
+  // const history = useHistory();
+
   const { product } = location.state || {};
 
-  if(!product){
-    return(
-      <div>
-        <p>No Product Data available</p>
-      </div>
-    );
-  }
+  const handleBuyClick = () => {
+    if(!product){
+      console.error("Product Data not Found");
+      return;
+    }
+
+    const message = `Hi, I'm interested in buying ${product.title}. Check it out: ${window.location.href}`;
+    const whatsappNumber = '+233554492037';
+
+    const whatsappUrl = `https://wa.me/${whatsappNumber}/?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, '_blank');
+  };
+
+
 
   return (
     <Helmet title={"Product"}>
@@ -29,12 +38,12 @@ const ProductDetails = () => {
           <div className="md:hidden">
             <img src={product.images} alt="" />
           </div>
-          <a
-            href=""
+          <button
+            onClick={handleBuyClick}
             className="text-[12px] bg-orange  hover:bg-orange-800 text-white p-3 text-center font-extrabold"
           >
             Buy
-          </a>
+          </button>
         </div>
         <div className="hidden md:flex h-[300px]">
           <img src={product.images} alt="" />
