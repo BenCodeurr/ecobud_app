@@ -6,9 +6,7 @@ import {
   createBrowserRouter,
   createRoutesFromElements,
 } from "react-router-dom";
-import Cart from "./pages/Cart/Cart";
 import Home from "./pages/Home/Home";
-import Checkout from "./pages/Checkout/Checkout";
 import Login from "./pages/Login/Login";
 import SignUp from "./pages/Signup/Signup";
 import Shop from "./pages/Shop/Shop";
@@ -34,8 +32,6 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route exact path="signup" element={<SignUp />} />
         <Route exact path="shop" element={<Shop />} />
-        <Route exact path="checkout" element={<Checkout />} />
-        <Route exact path="cart" element={<Cart />} />
         <Route
           exact
           path="seller"

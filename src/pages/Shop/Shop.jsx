@@ -29,11 +29,11 @@ const Shop = () => {
     <>
       <Helmet tittle={"Shop"}>
         <NavBar/>
-        <div className="flex gap-3 flex-wrap justify-center mt-10">
+        <div className="flex gap-3 flex-wrap justify-center my-10">
         {products.map((product, index) => (
           <div
             key={index}
-            className="w-full max-w-sm bg-black border border-gray-200 rounded-lg shadow dark:bg-gray-800"
+            className=" max-w-sm bg-black border border-gray-200 rounded-lg shadow dark:bg-gray-800"
           >
             <a href="#">
               <img
