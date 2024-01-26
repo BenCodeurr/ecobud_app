@@ -3,7 +3,7 @@
 function ProductCard({ category, img }) {
   return (
     <>
-      <div className="w-[350px]  flex flex-col gap-6 mb-10">
+      <div className="w-[350px] mx-auto flex flex-col gap-6 mb-10">
         <div className="rounded-[10px] overflow-hidden">
           <img src={img} alt="" />
         </div>

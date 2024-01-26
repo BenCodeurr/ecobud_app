@@ -44,7 +44,7 @@ const Login = () => {
   };
 
   return (
-    <div className="relative md:h-[100vh] flex flex-col gap-7 md:flex-row text-white p-[40px] bg-primary font-inter">
+    <div className="relative min-h-screen justify-center flex flex-col gap-7 md:flex-row text-white p-[40px] bg-primary font-inter">
       <div
         className="image flex h-fit justify-center items-center font-bold gap-2 cursor-pointer"
         onClick={() => navigate("/")}
@@ -54,7 +54,7 @@ const Login = () => {
       </div>
 
       <div className="flex flex-col md:flex-row justify-center items-center w-full px-20 gap-[30px]">
-        <div className="flex flex-col md:gap-[30px] md:w-[45%] md:mr-10 ">
+        <div className="md:flex flex-col md:gap-[30px] md:w-[45%] md:mr-10 hidden">
           <h1 className="text-[40px] uppercase font-bold font-poppins tracking-[8px]">
             Turn clutter <br />
             into cash

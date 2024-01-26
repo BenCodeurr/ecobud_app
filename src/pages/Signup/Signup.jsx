@@ -34,14 +34,17 @@ const Signup = () => {
       });
   };
   return (
-    <div className="main-container relative h-[100vh] flex text-white p-[40px] bg-primary font-inter">
-      <div className="image flex h-fit justify-center items-center font-bold gap-2">
+    <div className="relative min-h-screen justify-center flex flex-col gap-7 md:flex-row text-white p-[40px] bg-primary font-inter">
+      <div
+        className="image flex h-fit justify-center items-center font-bold gap-2 cursor-pointer"
+        onClick={() => navigate("/")}
+      >
         <img src={logo} className="h-10" alt="Logo" />
         ECOBUDDi
       </div>
 
-      <div className="main-content flex justify-center items-center w-full px-20 gap-[30px]">
-        <div className="left-content flex flex-col gap-[30px] w-[45%] mr-10">
+      <div className="flex flex-col md:flex-row justify-center items-center w-full px-20 gap-[30px]">
+        <div className="md:flex flex-col md:gap-[30px] md:w-[45%] md:mr-10 hidden">
           <h1 className="text-[40px] uppercase font-bold font-poppins tracking-[8px]">
             Turn clutter <br />
             into cash
@@ -122,10 +125,39 @@ const Signup = () => {
         </div>
       </div>
 
-      <div className="octagon absolute bottom-6 h-[80px] w-[80px] overflow-hidden">
+      {/* <div className="octagon absolute bottom-6 h-[80px] w-[80px] overflow-hidden">
         <div className="inner w-[80px] h-[80px]  bg-secondary rotate-45"></div>
-      </div>
+      </div> */}
     </div>
+
+
+
+
+    // <div className="main-container relative min-h-screen md:flex justify-center text-white p-[40px] bg-primary font-inter">
+    //   <div className="image flex h-fit justify-center items-center font-bold gap-2">
+    //     <img src={logo} className="h-10" alt="Logo" />
+    //     ECOBUDDi
+    //   </div>
+
+    //   <div className="main-content flex justify-center items-center w-full px-20 gap-[30px]">
+    //     <div className="left-content md:flex flex-col gap-[30px] w-[45%] mr-10 hidden">
+    //       <h1 className="text-[40px] uppercase font-bold font-poppins tracking-[8px]">
+    //         Turn clutter <br />
+    //         into cash
+    //       </h1>
+    //       <p className="text-[15px] font-light">
+    //         It is a movement and a good one as such! Sign up and start posting
+    //         second hand items, declutter your space and earn some money.
+    //       </p>
+    //     </div>
+
+        
+    //   </div>
+
+    //   <div className="octagon absolute bottom-6 h-[80px] w-[80px] overflow-hidden hidden md:block">
+    //     <div className="inner w-[80px] h-[80px]  bg-secondary rotate-45"></div>
+    //   </div>
+    // </div>
   );
 };
 
