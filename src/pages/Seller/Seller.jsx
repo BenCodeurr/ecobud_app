@@ -100,10 +100,12 @@ function Seller() {
     try {
       const auth = getAuth();
       let userEmail = "";
+      let userPhone = "";
   
       onAuthStateChanged(auth, (user) => {
         if (user) {
           userEmail = user.email;
+          userPhone = user.phoneNumber;
         } else {
           toast.error("User not logged in");
         }
@@ -114,6 +116,7 @@ function Seller() {
           addDoc(collection(db, "products"), {
             ...data,
             user: userEmail,
+            phone: userPhone,
             images: imageUrls,
             timeStamp: serverTimestamp(),
           })

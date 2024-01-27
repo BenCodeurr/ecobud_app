@@ -1,9 +1,9 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/no-unescaped-entities */
-import { FaApple } from "react-icons/fa";
+// import { FaApple } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import logo from "../../assets/images/logo.png";
-import google from "../../assets/images/google.png";
+// import google from "../../assets/images/google.png";
 import "./Signup.css";
 import { useState, useContext } from "react";
 import { auth } from "../../services/Firebase";
@@ -13,6 +13,7 @@ import { AuthContext } from "../../context/AuthContext";
 const Signup = () => {
   const [error, setError] = useState(false);
   const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
 
@@ -23,7 +24,7 @@ const Signup = () => {
   const createAccount = (e) => {
     e.preventDefault();
 
-    createUserWithEmailAndPassword(auth, email, password, name)
+    createUserWithEmailAndPassword(auth, email, phone, password, name)
       .then((userCredential) => {
         const user = userCredential.user;
         dispatch({ type: "LOGIN", payload: user });
@@ -58,7 +59,7 @@ const Signup = () => {
         <div className="right-content bg-[#FAFAFA] text-black p-7 rounded-[20px] flex flex-col gap-4">
           <div className="heading mb-3">
             <h5 className="text-[10px]">LET'S GET YOU STARTED</h5>
-            <h4 className="text-[20px] font-bold">Log into your account</h4>
+            <h4 className="text-[20px] font-bold">Create an account</h4>
           </div>
           <form className="form flex flex-col gap-3" onSubmit={createAccount}>
             <input
@@ -67,6 +68,13 @@ const Signup = () => {
               placeholder="Your Name"
               required
               onChange={(e) => setName(e.target.value)}
+            />
+            <input
+              className="outline-none border-none bg-[#F2F4F6] rounded-[5px] pl-5 py-6 h-10 block"
+              type="text"
+              placeholder="Phone Number"
+              required
+              onChange={(e) => setPhone(e.target.value)}
             />
             <input
               className="outline-none border-none bg-[#F2F4F6] rounded-[5px] pl-5 py-6 h-10 block"
@@ -95,7 +103,7 @@ const Signup = () => {
               Kindly fill all the fields to proceed.
             </p>
           )}
-          <div className="divider flex gap-3 justify-center items-center text-[13px] text-[#a5a5a5]">
+          {/* <div className="divider flex gap-3 justify-center items-center text-[13px] text-[#a5a5a5]">
             <hr className="w-[150px]" />
             <span className="font-light text-[10px]">Or</span>
             <hr className="w-[150px]" />
@@ -110,7 +118,7 @@ const Signup = () => {
               <FaApple />
               Sign Up With Apple
             </a>
-          </div>
+          </div> */}
           <div className="user text-[13px] text-center mt-3 font-poppins">
             <p>
               Already have an account?{" "}

@@ -34,7 +34,7 @@ const Login = () => {
       })
       .catch((error) => {
         setError(true);
-        toast.error("Product successfully added", {
+        toast.error("Unable to log you in", {
           position: "top-center",
           hideProgressBar: true,
           theme: "colored",
@@ -98,7 +98,7 @@ const Login = () => {
               Wrong email or password
             </p>
           )}
-          <div className="divider flex gap-3 justify-center items-center text-[13px] text-[#a5a5a5]">
+          {/* <div className="divider flex gap-3 justify-center items-center text-[13px] text-[#a5a5a5]">
             <hr className="w-[150px]" />
             <span className="font-light text-[10px]">Or</span>
             <hr className="w-[150px]" />
@@ -113,7 +113,7 @@ const Login = () => {
               <FaApple />
               Login With Apple
             </a>
-          </div>
+          </div> */}
           <div className="user text-[13px] text-center mt-3 font-poppins">
             <p>
               Don't have an account?{" "}
