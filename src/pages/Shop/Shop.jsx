@@ -37,7 +37,7 @@ const Shop = () => {
             key={index}
             className=" max-w-sm bg-black border border-gray-200 rounded-lg shadow dark:bg-gray-800"
           >
-            <div onClick={() => navigate(`/shop/${index + 1}`, { state: { product } })} className="cursor-pointer">
+            <div onClick={() => navigate(`/shop/${product.id}`)} className="cursor-pointer">
               <img
                 className="p-8 rounded-t-lg"
                 src={product.images}
@@ -54,7 +54,7 @@ const Shop = () => {
                 <span className="text-2xl font-bold text-white">
                   {"ghs " + product.price}
                 </span>
-                <div onClick={() => navigate(`/shop/${index + 1}`, { state: { product } })}
+                <div onClick={() => navigate(`/shop/${product.id}`)}
                  className="text-white bg-orange  hover:bg-orange-800 text-[12px] font-bold font-poppins rounded-lg px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 cursor-pointer"
                 >
                    View Details

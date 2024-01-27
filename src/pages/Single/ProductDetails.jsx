@@ -1,14 +1,16 @@
 
 /* eslint-disable react/no-unescaped-entities */
+import { useEffect, useState } from "react";
 import Helmet from "../../components/Helmet/Helmet";
 import NavBar from "../../components/Nav/NavBar";
-import { useLocation} from "react-router-dom";
+import { useParams} from "react-router-dom";
+import { collection, onSnapshot, query, getDocs, getFirestore} from "@firebase/firestore";
+// import { db } from "../../services/Firebase";
 
 const ProductDetails = () => {
-  const location = useLocation();
-  // const history = useHistory();
+  const id = useParams();
 
-  const { product } = location.state || {};
+  const [product, setProduct] = useState({});
 
   const handleBuyClick = () => {
     if(!product){
@@ -22,6 +24,42 @@ const ProductDetails = () => {
     const whatsappUrl = `https://wa.me/${whatsappNumber}/?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
   };
+
+  // useEffect(() => {
+  //   const q = query(collection(db, "products"));
+  //   const unsubscribe = onSnapshot(q, (querySnapshot)=>{
+  //     let productsArr = [];
+  //     querySnapshot.forEach((doc) => {
+  //       productsArr.push({...doc.data(), id: doc.id});
+  //     });
+  //     const currentProduct = productsArr.find(product => product.id = id);
+  //     setProduct(currentProduct);
+  //     console.log(currentProduct);
+  //     console.log(productsArr)
+  //   })
+  //   return () => unsubscribe();
+  // }, []);
+
+  useEffect(() => {
+    const db = getFirestore();
+
+    const productsCollection = collection(db, "products");
+
+    const fetchData = async () => {
+      try {
+        const querySnapshot = await getDocs(productsCollection);
+        const productsData = querySnapshot.docs.map((doc) => doc.data());
+        const currentProduct = productsData.find(product => product.id = id);
+      setProduct(currentProduct);
+      console.log(currentProduct);
+      console.log(productsData)
+      } catch (error) {
+        console.error("Error fetching data from Firebase:", error);
+      }
+    };
+
+    fetchData();
+  }, [id]);
 
 
 

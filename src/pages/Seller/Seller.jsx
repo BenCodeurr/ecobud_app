@@ -1,60 +1,58 @@
 /* eslint-disable no-unused-vars */
-import { useEffect, useState } from "react";
+import { useEffect, useId, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import {
-  addDoc,
-  collection,
-  setDoc,
-  doc,
-  serverTimestamp,
-} from "firebase/firestore";
+import { collection, setDoc, doc, serverTimestamp } from "firebase/firestore";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { db, storage } from "../../services/Firebase";
 import Helmet from "../../components/Helmet/Helmet";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import { Link } from "react-router-dom";
+import { v4 as uuidv4 } from "uuid";
 
 function Seller() {
   const [images, setImages] = useState([]);
   const [imageURLs, setImageURLs] = useState([]);
   const [data, setData] = useState({
+    id: "",
     title: "",
     detail: "",
     category: "Caps",
-    price: 15
+    price: 15,
   });
 
   const handleInput = (e) => {
     const id = e.target.id;
     const value = e.target.value;
-  
+
     if (id === "category") {
       const defaultPrice = getDefaultPrice(value);
-      setData((prevData) => ({ ...prevData, [id]: value, price: defaultPrice }));
+      setData((prevData) => ({
+        ...prevData,
+        [id]: value,
+        price: defaultPrice,
+      }));
     } else {
       setData((prevData) => ({ ...prevData, [id]: value }));
     }
   };
 
-    const getDefaultPrice = (category) => {
-      switch (category) {
-        case "Shoes":
-          return 50;
-        case "Shirts":
-          return 20;
-        case "Bags":
-          return 30;
-        case "Trousers":
-          return 40;
-        case "Caps":
-        default:
-          return 15;
-      }
+  const getDefaultPrice = (category) => {
+    switch (category) {
+      case "Shoes":
+        return 50;
+      case "Shirts":
+        return 20;
+      case "Bags":
+        return 30;
+      case "Trousers":
+        return 40;
+      case "Caps":
+      default:
+        return 15;
+    }
   };
-
-  
 
   const productImages = async (e) => {
     const files = Array.from(e.target.files);
@@ -96,25 +94,28 @@ function Seller() {
 
   const addProduct = (e) => {
     e.preventDefault();
-  
+
     try {
       const auth = getAuth();
       let userEmail = "";
       let userPhone = "";
-  
+
       onAuthStateChanged(auth, (user) => {
         if (user) {
           userEmail = user.email;
-          userPhone = user.phoneNumber;
+          // userPhone = user.phoneNumber;
         } else {
           toast.error("User not logged in");
         }
       });
-  
+
+      const id = uuidv4();
+
       uploadImagesToStorage()
         .then((imageUrls) =>
-          addDoc(collection(db, "products"), {
+          setDoc(doc(db, "products", id), {
             ...data,
+            id: id,
             user: userEmail,
             phone: userPhone,
             images: imageUrls,
@@ -124,7 +125,13 @@ function Seller() {
         .then(() => {
           setImages([]);
           setImageURLs([]);
-          setData({ title: "", detail: "", category: "Caps", price: 15 });
+          setData({
+            id: "",
+            title: "",
+            detail: "",
+            category: "Caps",
+            price: 15,
+          });
           toast.success("Product successfully added", {
             position: "top-center",
             hideProgressBar: true,
@@ -139,7 +146,7 @@ function Seller() {
       toast.error("Error Adding product");
     }
   };
-  
+
   return (
     <>
       <Helmet title={"New Product"}>
@@ -178,7 +185,7 @@ function Seller() {
                   ))}
                 </div>
               </div>
-              <form className="form flex flex-col gap-3">
+              <form className="form flex flex-col gap-3" onSubmit={(e) => {addProduct(e)}}>
                 <input
                   className="outline-none border-none bg-[#F2F4F6] rounded-[5px] pl-5 py-6 h-10 block"
                   type="text"
@@ -240,7 +247,6 @@ function Seller() {
                 <button
                   type="submit"
                   className="rounded-[5px] bg-primary text-white text-[12px] p-[10px] font-bold hover:bg-secondary shadow-sm"
-                  onClick={addProduct}
                 >
                   Add
                 </button>
@@ -253,6 +259,5 @@ function Seller() {
     </>
   );
 }
-
 
 export default Seller;
