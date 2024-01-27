@@ -4,11 +4,10 @@ import { useEffect, useState } from "react";
 import Helmet from "../../components/Helmet/Helmet";
 import NavBar from "../../components/Nav/NavBar";
 import { useParams} from "react-router-dom";
-import { collection, onSnapshot, query, getDocs, getFirestore} from "@firebase/firestore";
-// import { db } from "../../services/Firebase";
+import { collection, getDocs, getFirestore} from "@firebase/firestore";
 
 const ProductDetails = () => {
-  const id = useParams();
+  const {id} = useParams();
 
   const [product, setProduct] = useState({});
 
@@ -25,21 +24,6 @@ const ProductDetails = () => {
     window.open(whatsappUrl, '_blank');
   };
 
-  // useEffect(() => {
-  //   const q = query(collection(db, "products"));
-  //   const unsubscribe = onSnapshot(q, (querySnapshot)=>{
-  //     let productsArr = [];
-  //     querySnapshot.forEach((doc) => {
-  //       productsArr.push({...doc.data(), id: doc.id});
-  //     });
-  //     const currentProduct = productsArr.find(product => product.id = id);
-  //     setProduct(currentProduct);
-  //     console.log(currentProduct);
-  //     console.log(productsArr)
-  //   })
-  //   return () => unsubscribe();
-  // }, []);
-
   useEffect(() => {
     const db = getFirestore();
 
@@ -49,7 +33,7 @@ const ProductDetails = () => {
       try {
         const querySnapshot = await getDocs(productsCollection);
         const productsData = querySnapshot.docs.map((doc) => doc.data());
-        const currentProduct = productsData.find(product => product.id = id);
+        const currentProduct = productsData.find(product => product.id === id);
       setProduct(currentProduct);
       console.log(currentProduct);
       console.log(productsData)
