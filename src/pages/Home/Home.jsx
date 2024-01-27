@@ -1,14 +1,16 @@
 import hero from "../../assets/images/hero.png";
 import ld from "../../assets/images/ld.png";
-import chair from "../../assets/images/chair.jpg";
+// import chair from "../../assets/images/chair.jpg";
 import "./Home.css";
-import ProductCard from "../../components/ProductCard";
+// import ProductCard from "../../components/ProductCard";
 import { useNavigate } from "react-router-dom";
 import NavBar from "../../components/Nav/NavBar";
 import Helmet from "../../components/Helmet/Helmet";
 
+
 const Home = () => {
   const navigate = useNavigate();
+  
   return (
     <>
       <Helmet title={"Home"}>
@@ -44,12 +46,9 @@ const Home = () => {
             <img className="w-[400px]" src={ld} alt="female University student enjoying shopping with Ecobuddi" />
           </div>
           <div className="flex flex-col md:w-[40%] text-white gap-7">
-            <h3 className="font-poppins text-[50px] text-black text-center md:text-start">Sit donec</h3>
-            <p className="text-black text-center md:text-start">
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-              Quibusdam, iure. Dolore quasi inventore id aliquid fuga adipisci!
-              Ad architecto amet, perferendis dolores est, ipsam, dolorem quos
-              saepe consequatur perspiciatis beatae.
+            <h3 className="font-poppins text-[30px] font-bold md:text-[50px] text-black text-center md:text-start">Join Ecobuddi Today</h3>
+            <p className="text-black mx-4 md:mx-0 text-center md:text-start font-inter font-light ">
+            Ready to declutter, earn, and discover great deals? Join Ecobuddi now and experience the future of student-centric online selling.
             </p>
             <a
               className="bg-orange h-fit w-fit mx-auto md:mx-0 text-white text-center md:py-2 py-4 px-3 text-xl md:text-base rounded-[5px] font-bold cursor-pointer"
@@ -60,7 +59,7 @@ const Home = () => {
           </div>
         </div>
 
-        <div className="flex mt-20 gap-10 flex-col">
+        {/* <div className="flex mt-20 gap-10 flex-col">
           <h3 className="text-[40px] font-poppins font-bold text-center">
             Trending Products
           </h3>
@@ -69,7 +68,7 @@ const Home = () => {
             <ProductCard img={chair} category="TANKS" />
             <ProductCard img={chair} category="ELECTRONICS" />
           </div>
-        </div>
+        </div> */}
       </Helmet>
     </>
   );
