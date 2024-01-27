@@ -5,7 +5,7 @@
  const Helmet = (props) => {
     document.title = 'Ecobuddi - ' + props.title;
   return (
-    <div className="w-100">{props.children}</div>
+    <div className="">{props.children}</div>
   )
 }
 
