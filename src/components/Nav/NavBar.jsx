@@ -13,7 +13,7 @@ function NavBar() {
       display: "HOME",
     },
     {
-      path: "shop",
+      path: "/shop",
       display: "SHOP",
     },
     {
