@@ -17,7 +17,7 @@ const ProductDetails = () => {
     }
 
     const message = `Hi, I'm interested in buying ${product.title}. Check it out: ${window.location.href}`;
-    const whatsappNumber = '+233554492037';
+    const whatsappNumber = '+233536039652';
 
     const whatsappUrl = `https://wa.me/${whatsappNumber}/?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
