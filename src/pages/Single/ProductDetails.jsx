@@ -62,9 +62,9 @@ const ProductDetails = () => {
           </div>
           <button
             onClick={handleBuyClick}
-            className="text-[12px] bg-orange  hover:bg-orange-800 text-white p-3 text-center font-extrabold"
+            className="text-[12px] bg-orange-500  hover:bg-orange-800 w-fit text-white px-10 py-3 rounded-md text-center font-extrabold"
           >
-            Buy
+            BUY NOW
           </button>
         </div>
         <div className="hidden md:flex h-[300px]">
