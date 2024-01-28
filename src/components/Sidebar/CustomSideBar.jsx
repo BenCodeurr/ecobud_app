@@ -12,7 +12,7 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import { useContext } from "react";
 
-const Sidebar = () => {
+const CustomSideBar = () => {
   const navigate = useNavigate();
   const auth = getAuth();
   const { dispatch } = useContext(AuthContext);
@@ -65,4 +65,4 @@ const Sidebar = () => {
   );
 };
 
-export default Sidebar;
+export default CustomSideBar;
