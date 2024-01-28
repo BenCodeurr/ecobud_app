@@ -6,11 +6,11 @@ import "./Home.css";
 import { useNavigate } from "react-router-dom";
 import NavBar from "../../components/Nav/NavBar";
 import Helmet from "../../components/Helmet/Helmet";
-
+import { Button } from "flowbite-react";
 
 const Home = () => {
   const navigate = useNavigate();
-  
+
   return (
     <>
       <Helmet title={"Home"}>
@@ -25,12 +25,12 @@ const Home = () => {
                 Earn money by selling your used and unwanted goods or partner
                 with us and donate to our platform.
               </p>
-              <a
-                className="bg-white text-black h-fit text-center md:py-2 py-4 px-3 text-xl md:text-base rounded-[5px] font-medium cursor-pointer uppercase hover:bg-orange hover:text-white transition-all duration-200"
+              <Button
+                className=" bg-white hover:bg-orange-500 h-fit text-primary hover:text-white transition-all delay-[25ms] text-center rounded-md font-bold hidden md:block"
                 onClick={() => navigate("/shop")}
               >
-                Shop Now
-              </a>
+                SHOP NOW
+              </Button>
             </div>
             <div className="hidden md:inline-block w-[300px]">
               <img
@@ -43,19 +43,26 @@ const Home = () => {
 
         <div className="flex flex-col md:flex-row md:justify-around mt-10 gap-10">
           <div className="w-[300px] mx-auto md:mx-0">
-            <img className="w-[400px]" src={ld} alt="female University student enjoying shopping with Ecobuddi" />
+            <img
+              className="w-[400px]"
+              src={ld}
+              alt="female University student enjoying shopping with Ecobuddi"
+            />
           </div>
           <div className="flex flex-col md:w-[40%] text-white gap-7">
-            <h3 className="font-poppins text-[30px] font-bold md:text-[50px] text-black text-center md:text-start">Join Ecobuddi Today</h3>
+            <h3 className="font-poppins text-[30px] font-bold md:text-[50px] text-black text-center md:text-start">
+              Join Ecobuddi Today
+            </h3>
             <p className="text-black mx-4 md:mx-0 text-center md:text-start font-inter font-light ">
-            Ready to declutter, earn, and discover great deals? Join Ecobuddi now and experience the future of student-centric online selling.
+              Ready to declutter, earn, and discover great deals? Join Ecobuddi
+              now and experience the future of student-centric online selling.
             </p>
-            <a
-              className="bg-orange h-fit w-fit mx-auto md:mx-0 text-white text-center md:py-2 py-4 px-3 text-xl md:text-base rounded-[5px] font-bold cursor-pointer"
+            <Button
+              className=" bg-orange-500 h-fit w-fit mx-auto md:mx-0 text-white rounded-md font-bold"
               onClick={() => navigate("/login")}
             >
               LIST ITEM
-            </a>
+            </Button>
           </div>
         </div>
 

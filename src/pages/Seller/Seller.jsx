@@ -3,14 +3,16 @@ import { useEffect, useId, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import logo from "../../assets/images/logo.png";
+import { useNavigate } from "react-router-dom";
 import { collection, setDoc, doc, serverTimestamp } from "firebase/firestore";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { db, storage } from "../../services/Firebase";
 import Helmet from "../../components/Helmet/Helmet";
-import Sidebar from "../../components/Sidebar/Sidebar";
 import { Link } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
+import { Button, Navbar, Sidebar } from "flowbite-react";
+import CustomSideBar from "../../components/Sidebar/CustomSideBar";
 
 function Seller() {
   const [images, setImages] = useState([]);
@@ -148,57 +150,33 @@ function Seller() {
     }
   };
 
+  const navigate = useNavigate();
+
   return (
     <>
       <Helmet title={"New Product"}>
-        <div className="top flex items-center justify-center h-[50px] shadow-md  ">
-          <div className="me-auto lg:hidden">
-            <button
-              data-drawer-target="default-sidebar"
-              data-drawer-toggle="default-sidebar"
-              aria-controls="default-sidebar"
-              type="button"
-              className="inline-flex items-center p-2 mt-2 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-            >
-              <span className="sr-only">Open sidebar</span>
-              <svg
-                className="w-6 h-6"
-                aria-hidden="true"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  clipRule="evenodd"
-                  fillRule="evenodd"
-                  d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"
-                ></path>
-              </svg>
-            </button>
-            <aside
-              id="default-sidebar"
-              className="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0"
-              aria-label="Sidebar"
-            >
-              <div className="h-full py-5 overflow-y-auto bg-gray-50 dark:bg-gray-800">
-                <div className="image flex items-center px-4 font-bold gap-2 cursor-pointer mb-5">
-                  <img src={logo} className="h-10" alt="Logo" />
-                  ECOBUDDi
-                </div>
-                <Sidebar />
-              </div>
-            </aside>
-          </div>
-
-          <Link to="/" style={{ textDecoration: "none" }}>
-            <span className=" text-xl me-2 lg:me-0 font-bold text-primary font-poppins">
-              Welcome Back!
+        <Navbar fluid rounded className=" md:hidden">
+          <Navbar.Brand>
+            <img src={logo} className="h-10" alt="Logo" />
+            <span className="self-center whitespace-nowrap text-xl font-semibold text-primary">
+              ECOBUDDi
             </span>
-          </Link>
-        </div>
-        <div className="min-h-screen text-primary lg:flex gap-20 lg:p-7 p-3 ">
+          </Navbar.Brand>
+          <div className="flex">
+            <Navbar.Toggle />
+          </div>
+          <Navbar.Collapse>
+            <Button
+              className=" bg-red-600 h-fit text-white w-fit text-center rounded-md font-bold"
+              onClick={() => navigate("/login")}
+            >
+              LOGOUT
+            </Button>
+          </Navbar.Collapse>
+        </Navbar>
+        <div className="min-h-screen text-primary lg:flex gap-20 lg:p-7 p-3 mt-5 md:mt-0">
           <div className="hidden lg:flex">
-            <Sidebar />
+            <CustomSideBar />
           </div>
           <div className="flex flex-col gap-5 lg:w-[500px]">
             <h3 className="text-2xl font-poppins font-bold">New Item</h3>
