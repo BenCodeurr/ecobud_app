@@ -9,7 +9,6 @@ import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { db, storage } from "../../services/Firebase";
 import Helmet from "../../components/Helmet/Helmet";
-import { Link } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import { Button, Navbar, Sidebar } from "flowbite-react";
 import CustomSideBar from "../../components/Sidebar/CustomSideBar";
@@ -101,50 +100,48 @@ function Seller() {
     try {
       const auth = getAuth();
       let userEmail = "";
-      // let userPhone = "";
 
       onAuthStateChanged(auth, (user) => {
         if (user) {
           userEmail = user.email;
-          // userPhone = user.phoneNumber;
+
+          const id = uuidv4();
+
+          uploadImagesToStorage()
+            .then((imageUrls) =>
+              setDoc(doc(db, "products", id), {
+                ...data,
+                id: id,
+                user: userEmail,
+                images: imageUrls,
+                timeStamp: serverTimestamp(),
+                price: data.price + 10, // 10 ghs
+              })
+            )
+            .then(() => {
+              setImages([]);
+              setImageURLs([]);
+              setData({
+                id: "",
+                title: "",
+                detail: "",
+                category: "Caps",
+                price: 15,
+              });
+              toast.success("Product successfully added", {
+                position: "top-center",
+                hideProgressBar: true,
+                theme: "colored",
+                pauseOnHover: true,
+              });
+            })
+            .catch((err) => {
+              toast.error("Error Adding product");
+            });
         } else {
           toast.error("User not logged in");
         }
       });
-
-      const id = uuidv4();
-
-      uploadImagesToStorage()
-        .then((imageUrls) =>
-          setDoc(doc(db, "products", id), {
-            ...data,
-            id: id,
-            user: userEmail,
-            // phone: userPhone,
-            images: imageUrls,
-            timeStamp: serverTimestamp(),
-          })
-        )
-        .then(() => {
-          setImages([]);
-          setImageURLs([]);
-          setData({
-            id: "",
-            title: "",
-            detail: "",
-            category: "Caps",
-            price: 15,
-          });
-          toast.success("Product successfully added", {
-            position: "top-center",
-            hideProgressBar: true,
-            theme: "colored",
-            pauseOnHover: true,
-          });
-        })
-        .catch((err) => {
-          toast.error("Error Adding product");
-        });
     } catch (err) {
       toast.error("Error Adding product");
     }
@@ -193,7 +190,9 @@ function Seller() {
                     className="hidden"
                     type="file"
                     name="product"
-                    onChange={productImages}
+                    onChange={(e) => {
+                      productImages(e);
+                    }}
                     multiple
                     id="file_upload"
                   />
@@ -215,8 +214,11 @@ function Seller() {
                   type="text"
                   id="title"
                   placeholder="Name of Product"
+                  required
                   value={data.title}
-                  onChange={handleInput}
+                  onChange={(e) => {
+                    handleInput(e);
+                  }}
                 />
                 <div className="flex space-x-4">
                   <div className="flex items-center">
@@ -225,7 +227,9 @@ function Seller() {
                     </label>
                     <select
                       name="selectedCategory"
-                      onChange={handleInput}
+                      onChange={(e) => {
+                        handleInput(e);
+                      }}
                       id="category"
                       value={data.category}
                       className="ml-2 p-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500 font-poppins text-[13px]"
@@ -244,7 +248,9 @@ function Seller() {
                     </label>
                     <select
                       name="selectedCategory"
-                      onChange={handleInput}
+                      onChange={(e) => {
+                        handleInput(e);
+                      }}
                       id="price"
                       value={data.price}
                       disabled
@@ -264,8 +270,11 @@ function Seller() {
                   rows={3}
                   id="detail"
                   placeholder="Product Details"
+                  required
                   value={data.detail}
-                  onChange={handleInput}
+                  onChange={(e) => {
+                    handleInput(e);
+                  }}
                 />
 
                 <button

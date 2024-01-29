@@ -1,14 +1,15 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/no-unescaped-entities */
-// import { FaApple } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import logo from "../../assets/images/logo.png";
-// import google from "../../assets/images/google.png";
 import "./Signup.css";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { useState, useContext } from "react";
-import { auth } from "../../services/Firebase";
+import { auth, db } from "../../services/Firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { AuthContext } from "../../context/AuthContext";
+import { doc, setDoc } from "firebase/firestore";
 
 const Signup = () => {
   const [error, setError] = useState(false);
@@ -21,18 +22,44 @@ const Signup = () => {
 
   const { dispatch } = useContext(AuthContext);
 
-  const createAccount = (e) => {
+  const createAccount = async (e) => {
     e.preventDefault();
 
-    createUserWithEmailAndPassword(auth, email, password, name, phone)
-      .then((userCredential) => {
-        const user = userCredential.user;
-        dispatch({ type: "LOGIN", payload: user });
-        navigate("/seller");
-      })
-      .catch((error) => {
-        setError(true);
+
+    if (!name || !phone || !email || !password) {
+      setError(true);
+      toast.error("Kindly fill all the fields", {
+        position: "top-right",
+        hideProgressBar: true,
+        theme: "colored",
+        pauseOnHover: true,
       });
+      return;
+    }
+
+    try {
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      const user = userCredential.user;
+
+      const userDocRef = doc(db, "users", user.uid);
+
+      await setDoc(userDocRef, {
+        name: name,
+        phone: phone,
+        email: email,
+        password: password,
+      });
+
+      dispatch({ type: "LOGIN", payload: user });
+      navigate("/seller");
+    } catch (err) {
+      setError(true);
+      console.log("Error creating your account ", err);
+    }
   };
   return (
     <div className="relative min-h-screen justify-center flex flex-col gap-7 md:flex-row text-white p-[40px] bg-primary font-inter">
@@ -61,33 +88,34 @@ const Signup = () => {
             <h5 className="text-[10px]">LET'S GET YOU STARTED</h5>
             <h4 className="text-[20px] font-bold">Create an account</h4>
           </div>
-          <form className="form flex flex-col gap-3" onSubmit={createAccount}>
+          <form
+            className="form flex flex-col gap-3"
+            onSubmit={(e) => {
+              createAccount(e);
+            }}
+          >
             <input
               className="outline-none border-none bg-[#F2F4F6] rounded-[5px] pl-5 py-6 h-10 block"
               type="text"
               placeholder="Your Name"
-              required
               onChange={(e) => setName(e.target.value)}
             />
             <input
               className="outline-none border-none bg-[#F2F4F6] rounded-[5px] pl-5 py-6 h-10 block"
               type="text"
               placeholder="Phone Number"
-              required
               onChange={(e) => setPhone(e.target.value)}
             />
             <input
               className="outline-none border-none bg-[#F2F4F6] rounded-[5px] pl-5 py-6 h-10 block"
               type="email"
               placeholder="Email Adress"
-              required
               onChange={(e) => setEmail(e.target.value)}
             />
             <input
               className="outline-none border-none bg-[#F2F4F6] rounded-[5px] pl-5 py-6 h-10 block"
               type="password"
               placeholder="Password"
-              required
               onChange={(e) => setPassword(e.target.value)}
             />
 
@@ -98,27 +126,6 @@ const Signup = () => {
               Sign Up
             </button>
           </form>
-          {error && (
-            <p className="error text-red text-center font-poppins text-[11px]">
-              Kindly fill all the fields to proceed.
-            </p>
-          )}
-          {/* <div className="divider flex gap-3 justify-center items-center text-[13px] text-[#a5a5a5]">
-            <hr className="w-[150px]" />
-            <span className="font-light text-[10px]">Or</span>
-            <hr className="w-[150px]" />
-          </div>
-          <div className="signup-options flex flex-col gap-4 font-poppins text-grey">
-            <a href="" className="google">
-              <img className="h-4" src={google} alt="" />
-              Sign Up with Google
-            </a>
-
-            <a href="" className="apple">
-              <FaApple />
-              Sign Up With Apple
-            </a>
-          </div> */}
           <div className="user text-[13px] text-center mt-3 font-poppins">
             <p>
               Already have an account?{" "}
@@ -130,42 +137,10 @@ const Signup = () => {
               </a>
             </p>
           </div>
+          <ToastContainer />
         </div>
       </div>
-
-      {/* <div className="octagon absolute bottom-6 h-[80px] w-[80px] overflow-hidden">
-        <div className="inner w-[80px] h-[80px]  bg-secondary rotate-45"></div>
-      </div> */}
     </div>
-
-
-
-
-    // <div className="main-container relative min-h-screen md:flex justify-center text-white p-[40px] bg-primary font-inter">
-    //   <div className="image flex h-fit justify-center items-center font-bold gap-2">
-    //     <img src={logo} className="h-10" alt="Logo" />
-    //     ECOBUDDi
-    //   </div>
-
-    //   <div className="main-content flex justify-center items-center w-full px-20 gap-[30px]">
-    //     <div className="left-content md:flex flex-col gap-[30px] w-[45%] mr-10 hidden">
-    //       <h1 className="text-[40px] uppercase font-bold font-poppins tracking-[8px]">
-    //         Turn clutter <br />
-    //         into cash
-    //       </h1>
-    //       <p className="text-[15px] font-light">
-    //         It is a movement and a good one as such! Sign up and start posting
-    //         second hand items, declutter your space and earn some money.
-    //       </p>
-    //     </div>
-
-        
-    //   </div>
-
-    //   <div className="octagon absolute bottom-6 h-[80px] w-[80px] overflow-hidden hidden md:block">
-    //     <div className="inner w-[80px] h-[80px]  bg-secondary rotate-45"></div>
-    //   </div>
-    // </div>
   );
 };
 

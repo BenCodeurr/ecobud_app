@@ -26,6 +26,17 @@ const Login = () => {
   const handleLogin = (e) => {
     e.preventDefault();
 
+    if (!email || !password) {
+      setError(true);
+      toast.error("Kindly fill all the fields", {
+        position: "top-right",
+        hideProgressBar: true,
+        theme: "colored",
+        pauseOnHover: true,
+      });
+      return;
+    }
+
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
@@ -70,19 +81,22 @@ const Login = () => {
             <h5 className="text-[10px]">LET'S GET YOU STARTED</h5>
             <h4 className="text-[20px] font-bold">Log into your account</h4>
           </div>
-          <form className="form flex flex-col gap-3" onSubmit={handleLogin}>
+          <form
+            className="form flex flex-col gap-3"
+            onSubmit={(e) => {
+              handleLogin(e);
+            }}
+          >
             <input
               className="outline-none border-none bg-[#F2F4F6] rounded-[5px] pl-5 py-6 h-10 block"
               type="email"
               placeholder="Email Adress"
-              required
               onChange={(e) => setEmail(e.target.value)}
             />
             <input
               className="outline-none border-none bg-[#F2F4F6] rounded-[5px] pl-5 py-6 h-10 block"
               type="password"
               placeholder="Password"
-              required
               onChange={(e) => setPassword(e.target.value)}
             />
             <button
@@ -93,27 +107,11 @@ const Login = () => {
             </button>
           </form>
           <ToastContainer />
-          {error && (
+          {/* {error && (
             <p className="error text-red text-center font-poppins text-[11px]">
               Wrong email or password
             </p>
-          )}
-          {/* <div className="divider flex gap-3 justify-center items-center text-[13px] text-[#a5a5a5]">
-            <hr className="w-[150px]" />
-            <span className="font-light text-[10px]">Or</span>
-            <hr className="w-[150px]" />
-          </div>
-          <div className="signup-options flex flex-col gap-4 font-poppins text-grey">
-            <a href="" className="google">
-              <img className="h-4" src={google} alt="" />
-              Login with Google
-            </a>
-
-            <a href="" className="apple">
-              <FaApple />
-              Login With Apple
-            </a>
-          </div> */}
+          )} */}
           <div className="user text-[13px] text-center mt-3 font-poppins">
             <p>
               Don't have an account?{" "}
@@ -127,10 +125,6 @@ const Login = () => {
           </div>
         </div>
       </div>
-
-      {/* <div className="octagon absolute bottom-6 h-[80px] w-[80px] overflow-hidden">
-        <div className="inner w-[80px] h-[80px]  bg-secondary rotate-45"></div>
-      </div> */}
     </div>
   );
 };
