@@ -13,7 +13,7 @@ import { AuthContext } from "../../context/AuthContext";
 const Signup = () => {
   const [error, setError] = useState(false);
   const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
+  // const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
 
@@ -24,7 +24,7 @@ const Signup = () => {
   const createAccount = (e) => {
     e.preventDefault();
 
-    createUserWithEmailAndPassword(auth, email, phone, password, name)
+    createUserWithEmailAndPassword(auth, email, password, name)
       .then((userCredential) => {
         const user = userCredential.user;
         dispatch({ type: "LOGIN", payload: user });
@@ -69,13 +69,13 @@ const Signup = () => {
               required
               onChange={(e) => setName(e.target.value)}
             />
-            <input
+            {/* <input
               className="outline-none border-none bg-[#F2F4F6] rounded-[5px] pl-5 py-6 h-10 block"
               type="text"
               placeholder="Phone Number"
               required
               onChange={(e) => setPhone(e.target.value)}
-            />
+            /> */}
             <input
               className="outline-none border-none bg-[#F2F4F6] rounded-[5px] pl-5 py-6 h-10 block"
               type="email"

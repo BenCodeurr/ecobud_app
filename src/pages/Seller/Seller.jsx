@@ -101,7 +101,7 @@ function Seller() {
     try {
       const auth = getAuth();
       let userEmail = "";
-      let userPhone = "";
+      // let userPhone = "";
 
       onAuthStateChanged(auth, (user) => {
         if (user) {
@@ -120,7 +120,7 @@ function Seller() {
             ...data,
             id: id,
             user: userEmail,
-            phone: userPhone,
+            // phone: userPhone,
             images: imageUrls,
             timeStamp: serverTimestamp(),
           })

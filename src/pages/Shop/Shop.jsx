@@ -46,7 +46,7 @@ const Shop = () => {
             </div>
             <div className="px-5 pb-5">
               <a href="#">
-                <h5 className="text-xl font-semibold tracking-tight text-white mb-5">
+                <h5 className="text-xl font-semibold tracking-tight text-white  mb-5">
                   {product.title}
                 </h5>
               </a>
