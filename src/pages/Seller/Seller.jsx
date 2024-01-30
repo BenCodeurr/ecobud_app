@@ -20,7 +20,7 @@ function Seller() {
     id: "",
     title: "",
     detail: "",
-    category: "Caps",
+    category: "Accessories",
     price: 15,
   });
 
@@ -50,7 +50,7 @@ function Seller() {
         return 30;
       case "Trousers":
         return 40;
-      case "Caps":
+      case "Accessories":
       default:
         return 15;
     }
@@ -125,7 +125,7 @@ function Seller() {
                 id: "",
                 title: "",
                 detail: "",
-                category: "Caps",
+                category: "Accessories",
                 price: 15,
               });
               toast.success("Product successfully added", {
@@ -234,7 +234,7 @@ function Seller() {
                       value={data.category}
                       className="ml-2 p-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500 font-poppins text-[13px]"
                     >
-                      <option value="Caps">Caps</option>
+                      <option value="Accessories">Accessories</option>
                       <option value="Shirts">Shirts</option>
                       <option value="Bags">Bags</option>
                       <option value="Trousers">Trousers</option>

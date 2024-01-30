@@ -65,17 +65,6 @@ const Home = () => {
             </Button>
           </div>
         </div>
-
-        {/* <div className="flex mt-20 gap-10 flex-col">
-          <h3 className="text-[40px] font-poppins font-bold text-center">
-            Trending Products
-          </h3>
-          <div className="lg:flex gap-6 justify-center items-center">
-            <ProductCard img={chair} category="CHAIR" />
-            <ProductCard img={chair} category="TANKS" />
-            <ProductCard img={chair} category="ELECTRONICS" />
-          </div>
-        </div> */}
       </Helmet>
     </>
   );
