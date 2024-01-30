@@ -10,6 +10,7 @@ import { auth, db } from "../../services/Firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { AuthContext } from "../../context/AuthContext";
 import { doc, setDoc } from "firebase/firestore";
+import { hash } from "bcryptjs-react";
 
 const Signup = () => {
   const [error, setError] = useState(false);
@@ -38,10 +39,12 @@ const Signup = () => {
     }
 
     try {
+      const hashedPassword = await hash(password, 10);
+
       const userCredential = await createUserWithEmailAndPassword(
         auth,
         email,
-        password
+        hashedPassword
       );
       const user = userCredential.user;
 
@@ -51,7 +54,7 @@ const Signup = () => {
         name: name,
         phone: phone,
         email: email,
-        password: password,
+        password: hashedPassword,
       });
 
       dispatch({ type: "LOGIN", payload: user });
