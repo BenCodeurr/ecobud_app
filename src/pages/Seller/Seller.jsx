@@ -1,10 +1,10 @@
 /* eslint-disable no-unused-vars */
-import { useEffect, useId, useState } from "react";
+import { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import logo from "../../assets/images/logo.png";
 import { useNavigate } from "react-router-dom";
-import { collection, setDoc, doc, serverTimestamp } from "firebase/firestore";
+import { setDoc, doc, serverTimestamp } from "firebase/firestore";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { db, storage } from "../../services/Firebase";
@@ -12,8 +12,11 @@ import Helmet from "../../components/Helmet/Helmet";
 import { v4 as uuidv4 } from "uuid";
 import { Button, Navbar, Sidebar } from "flowbite-react";
 import CustomSideBar from "../../components/Sidebar/CustomSideBar";
+import { css } from "@emotion/react";
+import { BounceLoader } from "react-spinners";
 
 function Seller() {
+  const [loading, setLoading] = useState(false);
   const [images, setImages] = useState([]);
   const [imageURLs, setImageURLs] = useState([]);
   const [data, setData] = useState({
@@ -97,6 +100,23 @@ function Seller() {
   const addProduct = (e) => {
     e.preventDefault();
 
+    if (
+      images.length === 0 ||
+      data.title.trim() === "" ||
+      data.detail.trim() === "" ||
+      data.price === ""
+    ) {
+      toast.error("Please fill in all fields", {
+        position: "top-center",
+        hideProgressBar: true,
+        theme: "colored",
+        pauseOnHover: true,
+      });
+      return;
+    }
+
+    setLoading(true);
+
     try {
       const auth = getAuth();
       let userEmail = "";
@@ -137,6 +157,9 @@ function Seller() {
             })
             .catch((err) => {
               toast.error("Error Adding product");
+            })
+            .finally(() => {
+              setLoading(false);
             });
         } else {
           toast.error("User not logged in");
@@ -145,6 +168,9 @@ function Seller() {
     } catch (err) {
       toast.error("Error Adding product");
     }
+    // finally{
+    //   setLoading(false);
+    // }
   };
 
   const navigate = useNavigate();
@@ -152,6 +178,11 @@ function Seller() {
   return (
     <>
       <Helmet title={"New Product"}>
+        {loading && (
+          <div className=" flex justify-center mt-4">
+            <BounceLoader color="#000000" loading={loading} size={50} />
+          </div>
+        )}
         <Navbar fluid rounded className=" md:hidden">
           <Navbar.Brand>
             <img src={logo} className="h-10" alt="Logo" />

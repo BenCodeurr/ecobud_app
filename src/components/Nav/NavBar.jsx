@@ -4,8 +4,7 @@
 
 import { Button, Navbar } from "flowbite-react";
 import logo from "../../assets/images/logo.png";
-import { Link, useNavigate } from "react-router-dom";
-import { FaRegUser, FaSearch } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 function NavBar() {
   const navigate = useNavigate();
