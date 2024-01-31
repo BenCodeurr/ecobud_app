@@ -8,7 +8,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import google from "../../assets/images/google.png";
 import { useState, useContext } from "react";
-import { auth, signUpWithGoogle } from "../../services/Firebase";
+import { auth, signInWithGoogle, signUpWithGoogle } from "../../services/Firebase";
 import { useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { AuthContext } from "../../context/AuthContext";
@@ -55,10 +55,10 @@ const Login = () => {
       });
   };
 
-  const handleGoogleSignUp = async (e) => {
+  const handleGoogleSignIn = async (e) => {
     e.preventDefault();
     try {
-      await signUpWithGoogle();
+      await signInWithGoogle();
       toast({
         description: "Successfully Registered",
         duration: 3000,
@@ -127,7 +127,7 @@ const Login = () => {
               Login
             </button>
           </form>
-          <Button className=" bg-secondary text-primary" onClick={handleGoogleSignUp}>
+          <Button className=" bg-secondary text-primary" onClick={handleGoogleSignIn}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               x="0px"

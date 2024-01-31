@@ -22,11 +22,40 @@ export const storage = getStorage(app);
 
 const googleProvider = new GoogleAuthProvider();
 
-export const signUpWithGoogle = async (value) => {
+export const signInWithGoogle = async (value) => {
   try {
     console.log("value... ", value)
 
     const result = await signInWithPopup(auth, googleProvider);
+    const user = result.user;
+
+    // Create a new user document in Firestore if the user doesn't exist
+    const userRef = doc(db, "users", user.uid);
+    const docSnap = await getDoc(userRef);
+    if (!docSnap.exists()) {
+      await setDoc(userRef, {
+        email: user.email,
+        displayName: user.displayName,
+        photoURL: user.photoURL,
+        phoneNumber: user.phoneNumber,
+        userID: user.uid,
+        // user id
+      });
+    }
+
+    return user;
+
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
+
+export const signUpWithGoogle = async (value) => {
+  try {
+    console.log("value... ", value)
+
+    const result = await signUpWithGoogleWithPopup(auth, googleProvider);
     const user = result.user;
 
     // Create a new user document in Firestore if the user doesn't exist
