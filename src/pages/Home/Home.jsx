@@ -65,6 +65,11 @@ const Home = () => {
             </Button>
           </div>
         </div>
+
+        {/* ABOUT PAGE GOES HERE */}
+        <div>
+          <h2 className="font-bold text-6xl my-8 text-gray-900 dark:text-gray-100">ABOUT US</h2>
+        </div>
       </Helmet>
     </>
   );
