@@ -1,10 +1,13 @@
+import NavBar from "../../components/Nav/NavBar";
 
 
 const About = ()=> {
     
     return (
       <>
+      <NavBar/>
         <div>
+            <h1>Welcome</h1>
           <h2>Our Story: From Idea to Action</h2>
           <p>
             Welcome to Ecobuddi, where we believe in the power of

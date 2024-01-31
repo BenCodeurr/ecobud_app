@@ -13,6 +13,7 @@ import ProductDetails from "./pages/Single/ProductDetails";
 import { useContext } from "react";
 import { AuthContext } from "./context/AuthContext";
 import "./index.css";
+import About from "./pages/About/About";
 
 function App() {
   const { currentUser } = useContext(AuthContext);
@@ -27,6 +28,7 @@ function App() {
       <Route path="login" element={<Login />} />
       <Route path="signup" element={<SignUp />} />
       <Route path="shop" element={<Shop />} />
+      <Route path="about-us" element={<About />} />
       <Route
         path="seller"
         element={
