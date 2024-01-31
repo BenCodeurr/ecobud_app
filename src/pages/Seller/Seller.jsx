@@ -25,6 +25,7 @@ function Seller() {
     detail: "",
     category: "Accessories",
     price: 15,
+    isSold: false,
   });
 
   const handleInput = (e) => {
@@ -308,12 +309,21 @@ function Seller() {
                   }}
                 />
 
-                <button
-                  type="submit"
-                  className="rounded-[5px] bg-primary text-white text-[12px] p-[10px] font-bold hover:bg-secondary shadow-sm"
-                >
-                  Add
-                </button>
+                {isSold ? (
+                  <button
+                    type="submit"
+                    className="rounded-[5px] bg-primary text-white text-[12px] p-[10px] font-bold hover:bg-secondary shadow-sm"
+                  >
+                    Add
+                  </button>
+                ) : (
+                  <button
+                    disabled="disabled"
+                    className="rounded-[5px] bg-primary text-white text-[12px] p-[10px] font-bold hover:bg-secondary shadow-sm"
+                  >
+                    Sold Out
+                  </button>
+                )}
                 <ToastContainer />
               </form>
             </div>
