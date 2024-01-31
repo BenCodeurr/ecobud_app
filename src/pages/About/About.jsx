@@ -28,6 +28,7 @@ const About = ()=> {
             importance of student empowerment
           </p>
 
+          <img src="" alt="" />
           <p>
             Our team, hailing from multiple African countries, shares a deep
             passion for technology and a commitment to making a positive impact
