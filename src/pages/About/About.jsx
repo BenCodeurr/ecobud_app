@@ -1,7 +1,7 @@
 import NavBar from "../../components/Nav/NavBar";
 import { Button } from "flowbite-react";
 import { useNavigate } from "react-router-dom";
-import hero from "../../assets/images/about-hero-img.png";
+import hero from "../../assets/images/Ecobuddi_Team_Photo.jpg";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
@@ -53,27 +53,29 @@ const About = () => {
       </div>
       <div className="lg:flex justify-center">
         <img src={hero} alt="" className=" lg:w-6/12" />
-        
-          <Swiper
-            pagination={{
-              dynamicBullets: true,
-            }}
-            autoplay={{
-              delay: 3500,
-              disableOnInteraction: false,
-            }}
-            modules={[Pagination, Autoplay]}
-            className="mySwiper mt-5"
-          >
-            {text.map((text, index)=> (
-              <>
+
+        <Swiper
+          pagination={{
+            dynamicBullets: true,
+          }}
+          autoplay={{
+            delay: 3500,
+            disableOnInteraction: false,
+          }}
+          modules={[Pagination, Autoplay]}
+          className="mySwiper mt-5"
+        >
+          {text.map((text, index) => (
+            <>
               <SwiperSlide key={index} className="px-5 xl:px-20">
-                <h2 className=" text-primary text-4xl font-bold">{text.title}</h2>
+                <h2 className=" text-primary text-4xl font-bold">
+                  {text.title}
+                </h2>
                 <p className=" lg: mt-5">{text.content}</p>
               </SwiperSlide>
-              </>
-            ))}
-          </Swiper>
+            </>
+          ))}
+        </Swiper>
       </div>
     </>
   );
