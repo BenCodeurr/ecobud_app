@@ -19,7 +19,7 @@ function NavBar() {
       display: "SHOP",
     },
     {
-      path: "/",
+      path: "/about-us",
       display: "ABOUT US",
     },
   ];
