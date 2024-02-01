@@ -1,7 +1,7 @@
 import NavBar from "../../components/Nav/NavBar";
 import { Button } from "flowbite-react";
 import { useNavigate } from "react-router-dom";
-import hero from "../../assets/images/about-hero-img.png";
+import hero from "../../assets/images/Ecobuddi_Team_Photo.jpg";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
@@ -45,7 +45,7 @@ const About = () => {
           }
         </p>
         <Button
-          className=" bg-orange-500 w-fit py-5 px-4 text-xl mx-auto text-white transition-all delay-[25ms] text-center rounded-xl font-bold"
+          className=" bg-orange-500 w-fit py-3 px-4 mx-auto text-white transition-all delay-[25ms] text-center rounded-xl font-bold"
           onClick={() => navigate("/shop")}
         >
           SHOP NOW
@@ -67,13 +67,15 @@ const About = () => {
           >
             {text.map((text, index)=> (
               <>
-              <SwiperSlide key={index} className="px-5 xl:px-20">
-                <h2 className=" text-primary text-4xl font-bold">{text.title}</h2>
-                <p className=" lg: mt-5">{text.content}</p>
+              <SwiperSlide key={index} className="px-5 xl:px-16 text-center lg:text-left">
+                <h2 className=" text-primary xl:text-6xl text-4xl font-bold">
+                  {text.title}
+                </h2>
+                <p className=" lg:mt-5 leading-6">{text.content}</p>
               </SwiperSlide>
-              </>
-            ))}
-          </Swiper>
+            </>
+          ))}
+        </Swiper>
       </div>
     </>
   );
