@@ -34,7 +34,7 @@ const About = () => {
     <>
       <NavBar />
 
-      <div className=" xl:min-h-[75vh] mb-10 flex flex-col lg:gap-[4rem] gap-10 text-center mt-20">
+      <div className=" mb-10 lg:mb-16 flex flex-col lg:gap-[4rem] gap-10 text-center mt-20">
         <h1 className="xl:text-8xl lg:text-6xl text-4xl text-primary font-bold lg:w-[75%] mx-auto">
           Welcome to <span className="text-secondary">ECOBBUDi:</span>{" "}
           <span>Turn Clutter to Cash</span>
@@ -60,7 +60,7 @@ const About = () => {
             }}
             autoplay={{
               delay: 3500,
-              disableOnInteraction: false,
+              disableOnInteraction: true,
             }}
             modules={[Pagination, Autoplay]}
             className="mySwiper mt-5"
