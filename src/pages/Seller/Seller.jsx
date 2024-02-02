@@ -176,6 +176,9 @@ function Seller() {
 
   const navigate = useNavigate();
 
+  // const currentUser = useAuth();
+  // const userName = currentUser && currentUser.displayName;
+
   return (
     <>
       <Helmet title={"New Product"}>
@@ -208,6 +211,11 @@ function Seller() {
             <CustomSideBar />
           </div>
           <div className="flex flex-col gap-5 lg:w-[500px]">
+            {/* {userName && (
+              <h3 className="text-2xl font-poppins">
+                Welcome <span className="text-secondary">{userName}</span>
+              </h3>
+            )} */}
             <h3 className="text-2xl font-poppins font-bold">New Item</h3>
             <div className=" ">
               <div className="flex flex-col lg:gap-10 gap-5">
@@ -309,7 +317,14 @@ function Seller() {
                   }}
                 />
 
-                {isSold ? (
+                <button
+                  type="submit"
+                  className="rounded-[5px] bg-primary text-white text-[12px] p-[10px] font-bold hover:bg-secondary shadow-sm"
+                >
+                  Add
+                </button>
+
+                {/* {isSold ? (
                   <button
                     type="submit"
                     className="rounded-[5px] bg-primary text-white text-[12px] p-[10px] font-bold hover:bg-secondary shadow-sm"
@@ -323,7 +338,7 @@ function Seller() {
                   >
                     Sold Out
                   </button>
-                )}
+                )} */}
                 <ToastContainer />
               </form>
             </div>

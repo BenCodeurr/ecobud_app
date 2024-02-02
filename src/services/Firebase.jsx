@@ -1,9 +1,10 @@
 /* eslint-disable no-unused-vars */
 
 import { initializeApp } from "firebase/app";
-import { GoogleAuthProvider, getAuth, signInWithPopup } from 'firebase/auth';
+import { GoogleAuthProvider, getAuth, onAuthStateChanged, signInWithPopup } from 'firebase/auth';
 import { getStorage } from "firebase/storage";
 import { doc, getDoc, getFirestore, setDoc } from "firebase/firestore";
+import { useEffect, useState } from "react";
 
 
 const firebaseConfig = {
@@ -55,7 +56,7 @@ export const signUpWithGoogle = async (value) => {
   try {
     console.log("value... ", value)
 
-    const result = await signUpWithGoogleWithPopup(auth, googleProvider);
+    const result = await signInWithPopup(auth, googleProvider);
     const user = result.user;
 
     // Create a new user document in Firestore if the user doesn't exist
@@ -81,17 +82,17 @@ export const signUpWithGoogle = async (value) => {
 };
 
 //  custom hook to get current User
-export const useAuth = () => {
-  const [currentUser, setCurrentUser] = useState(false);
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) =>
-      setCurrentUser(user)
-    );
-    return unsubscribe;
-  }, []);
+// export const useAuth = () => {
+//   const [currentUser, setCurrentUser] = useState(false);
+//   useEffect(() => {
+//     const unsubscribe = onAuthStateChanged(auth, (user) =>
+//       setCurrentUser(user)
+//     );
+//     return unsubscribe;
+//   }, []);
 
-  return currentUser;
-};
+//   return currentUser;
+// };
 
 
 export const auth = getAuth();
