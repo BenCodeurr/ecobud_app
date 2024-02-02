@@ -1,9 +1,5 @@
 /* eslint-disable react/prop-types */
-import {
-  Navigate,
-  Route,
-  Routes,
-} from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home/Home";
 import Login from "./pages/Login/Login";
 import SignUp from "./pages/Signup/Signup";
@@ -14,6 +10,9 @@ import { useContext } from "react";
 import { AuthContext } from "./context/AuthContext";
 import "./index.css";
 import About from "./pages/About/About";
+import ReactGA from "react-ga";
+// Initialize React Ga with your tracking ID
+ReactGA.initialize("G-VGPKHMKJWC");
 
 function App() {
   const { currentUser } = useContext(AuthContext);
