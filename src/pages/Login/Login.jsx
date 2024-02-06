@@ -14,6 +14,27 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { AuthContext } from "../../context/AuthContext";
 import "./Login.css";
 import { Button } from "flowbite-react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/pagination";
+import { Pagination, Autoplay } from "swiper/modules";
+
+const text = [
+  {
+    title: "Turn clutter into cash",
+    content: `Earn money by selling your used and unwanted goods or partner with us and donate to our platform.`,
+  },
+  {
+    title: "The Birth of Ecobuddi",
+    content: `Amid brainstorming sessions and countless cups of coffee, the Ecobuddi concept was born. We asked ourselves, "What if we could create a marketplace that helped students declutter their lives and put money in their pockets?" That spark of inspiration fuelled our commitment to make it a reality.`,
+  },
+  {
+    title: "Our Mission",
+    content: `We're not just a marketplace; we're a community that believes in the potential of every item, the value of sustainability, and the importance of student empowerment.
+    Our team, hailing from multiple African countries, shares a deep passion for technology and a commitment to positively impacting the continent.
+    We invite you to join us on this exciting journey of solving a real problem that impacts students and the environment. Together, we can make a difference.`,
+  },
+];
 
 const Login = () => {
   const [error, setError] = useState(false);
@@ -76,9 +97,9 @@ const Login = () => {
   };
 
   return (
-    <div className="relative min-h-screen justify-center flex flex-col gap-7 md:flex-row text-white p-[40px] bg-primary font-inter">
+    <div className="relative min-h-screen justify-center gap-7 md:flex-row text-white p-[40px] bg-primary font-inter">
       <div
-        className="image flex h-fit justify-center items-center font-bold gap-2 cursor-pointer"
+        className="image flex h-fit items-center font-bold gap-2 cursor-pointer"
         onClick={() => navigate("/")}
       >
         <img src={logo} className="h-10" alt="Logo" />
@@ -86,7 +107,7 @@ const Login = () => {
       </div>
 
       <div className="flex flex-col md:flex-row justify-center items-center w-full px-20 gap-[30px]">
-        <div className="md:flex flex-col md:gap-[30px] md:w-[45%] md:mr-10 hidden">
+        {/* <div className="md:flex flex-col md:gap-[30px] md:w-[45%] md:mr-10 hidden">
           <h1 className="text-[40px] uppercase font-bold font-poppins tracking-[8px]">
             Turn clutter <br />
             into cash
@@ -95,7 +116,33 @@ const Login = () => {
             It is a movement and a good one as such! Sign up and start posting
             second hand items, declutter your space and earn some money.
           </p>
-        </div>
+        </div> */}
+
+          <Swiper
+            pagination={{
+              dynamicBullets: true,
+            }}
+            autoplay={{
+              delay: 3500,
+              disableOnInteraction: false,
+            }}
+            modules={[Pagination, Autoplay]}
+            className="mySwiper mt-5"
+          >
+            {text.map((text, index)=> (
+              <>
+              <SwiperSlide key={index} className="px-5 xl:px-20 min-h-10 py-10 ">
+                <h1 className="text-[40px] uppercase font-bold font-poppins tracking-[8px] text-secondary">
+                {text.title}
+                </h1>
+                <p className="text-[15px] font-light">
+             
+                {text.content}
+              </p>
+              </SwiperSlide>
+              </>
+            ))}
+          </Swiper>
 
         <div className=" bg-[#FAFAFA] text-black p-7 rounded-[20px] flex flex-col gap-4 ">
           <div className="heading mb-3">
