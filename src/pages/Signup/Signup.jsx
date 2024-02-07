@@ -136,7 +136,7 @@ const Signup = () => {
               dynamicBullets: true,
             }}
             autoplay={{
-              delay: 3500,
+              delay: 10000,
               disableOnInteraction: false,
             }}
             modules={[Pagination, Autoplay]}
